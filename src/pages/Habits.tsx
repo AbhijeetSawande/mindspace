@@ -172,11 +172,13 @@ function loadHabits(): Habit[] {
     if (raw) {
       const parsed = JSON.parse(raw)
       if (Array.isArray(parsed)) {
-        return parsed.map((h: Partial<Habit>) => ({
+        return parsed.map((h: Partial<Habit>): Habit => ({
           category: 'growth' as HabitCategory,
           identityStatement: 'I am someone who shows up',
           frequency: 'daily' as HabitFrequency,
           addedAt: new Date().toISOString(),
+          name: '',
+          emoji: '⭐',
           ...h,
           id: h.id ?? `${Date.now()}-${Math.random()}`,
           completions: h.completions ?? {},
