@@ -862,7 +862,7 @@ export function Dashboard() {
     const overdueTasks = todos.filter(t => !t.done && t.dueDate && t.dueDate < today)
     const todayPending = todayTasks.filter(t => !t.done)
     const habitsToday = habits.filter(h => h.completions[today]).length
-    const activeGoals = goals.filter(g => !g.done)
+    const activeGoals = goals.filter(g => g.milestones.length === 0 || g.milestones.some((m: { done: boolean }) => !m.done))
     const context = [
       `Today is ${new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}.`,
       profile.name ? `User: ${profile.name}` : '',
