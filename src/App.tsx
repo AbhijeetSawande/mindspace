@@ -29,7 +29,7 @@ function Pages({ page }: { page: string }) {
     case 'todos':      return <Todos />
     case 'notes':      return <Notes />
     case 'projects':   return <Projects />
-    case 'calendar':   return <Placeholder icon={CalendarDays} title="Calendar" description="Connect Google Calendar to see your schedule inside Mindspace." />
+    case 'calendar':   return <Placeholder icon={CalendarDays} title="Calendar" description="Connect Google Calendar to see your schedule inside Lifaro." />
     case 'habits':     return <Habits />
     case 'goals':      return <Goals />
     case 'journal':    return <Journal />
@@ -50,6 +50,14 @@ export default function App() {
   const authState = useAuthState()
   const appState = useAppState()
 
+  if (authState.loading) {
+    return (
+      <div className="gradient-mesh min-h-dvh flex items-center justify-center">
+        <span className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+      </div>
+    )
+  }
+
   return (
     <AuthContext.Provider value={authState}>
       {!authState.user ? (
@@ -66,12 +74,12 @@ export default function App() {
             <div
               className={cn(
                 'min-h-dvh flex flex-col transition-all duration-300',
-                'pb-20 md:pb-0',
+                'pb-24 md:pb-0',
                 appState.sidebarCollapsed ? 'md:pl-14' : 'md:pl-56'
               )}
             >
               <Header />
-              <main className="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full">
+              <main className="flex-1 p-3 md:p-6 max-w-7xl mx-auto w-full">
                 <Pages page={appState.page} />
               </main>
             </div>
